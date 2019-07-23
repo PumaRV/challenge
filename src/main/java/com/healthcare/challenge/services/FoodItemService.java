@@ -1,20 +1,24 @@
 package com.healthcare.challenge.services;
 
-import com.healthcare.challenge.models.FoodItem;
-import org.springframework.beans.factory.annotation.Value;
+import com.fatsecret.platform.model.Food;
+import com.fatsecret.platform.services.FatsecretService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FoodItemService {
 
-    @Value("${fatsecret.api.url}")
-    private String foodItemAPI;
+    private FatsecretService fatsecretService;
 
-    public FoodItem searchFoodItemById(final long id ){
-        return new FoodItem();
+    public FoodItemService(FatsecretService fatSecretService) {
+        this.fatsecretService = fatSecretService;
     }
 
-    public FoodItem searchFoodItemByName(final String name){
-        return new FoodItem();
+    public Food searchFoodItemById(final long id) {
+        return fatsecretService.getFood(id);
+    }
+
+    //TODO: implement search by name
+    public Food searchFoodItemByName(final String name) {
+        return new Food();
     }
 }

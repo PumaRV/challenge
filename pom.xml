@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven-resource-plugin>2.7</maven-resource-plugin>
+		<maven-exec-plugin>1.6.0</maven-exec-plugin>
 	</properties>
 
 	<dependencies>
@@ -47,6 +49,50 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+
+			<plugin>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${maven-exec-plugin}</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<executions>
+					<execution>
+						<!-- Run our version calculation script -->
+						<id>Generate UI</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>scripts/generate-ui.sh</executable>
+							<workingDirectory>${basedir}/challenge-ui</workingDirectory>
+							<arguments>build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resource-plugin}</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes/static/</outputDirectory >
+							<resources>
+								<resource>
+									<directory>${basedir}/challenge-ui/dist/control-center-ui</directory >
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -22,7 +22,7 @@ export class FoodItemDetailsComponent implements OnInit {
 
   public onSubmit(){
     const foodItem = this.foodItemFormGroup.value;
-    this.foodItemService.getFoodItem(foodItem).subscribe(response => console.log(response));
+    this.foodItemService.getFoodItem(foodItem.id).subscribe(response => console.log(response));
   }
   private initializeDefaultForm(foodItem?: FoodItem): void {
     this.foodItemFormGroup = this.formBuilder.group({

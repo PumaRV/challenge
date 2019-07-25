@@ -9,18 +9,18 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FoodItemServiceTest {
 
-@Mock
-FatsecretService fatsecretService;
+    @Mock
+    FatsecretService fatsecretService;
 
-@InjectMocks
-private FoodItemService foodItemService;
+    @InjectMocks
+    private FoodItemService foodItemService;
 
     @Test
     public void searchFoodItemById() {
@@ -30,7 +30,7 @@ private FoodItemService foodItemService;
         expectedFood.setName("Tamale");
         when(fatsecretService.getFood(anyLong())).thenReturn(expectedFood);
 
-        final Food actualFood  = foodItemService.searchFoodItemById(2L);
+        final Food actualFood = foodItemService.searchFoodItemById(2L);
         assertThat(actualFood, is(expectedFood));
     }
 }

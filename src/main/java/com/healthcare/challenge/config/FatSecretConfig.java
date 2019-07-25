@@ -15,7 +15,7 @@ public class FatSecretConfig {
     private String foodItemAPISecret;
 
     @Bean
-    public FatsecretService fatsecretService(){
-        return  new FatsecretService(foodItemAPIKey, foodItemAPISecret);
+    public FatsecretService fatsecretService() {
+        return new FatsecretService(foodItemAPIKey, foodItemAPISecret);
     }
 }

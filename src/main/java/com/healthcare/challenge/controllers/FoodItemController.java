@@ -21,7 +21,7 @@ public class FoodItemController {
 
     @GetMapping(value = "/foodItem/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Food searchItem(@PathVariable("id") long id) {
+    public Food searchItem(@PathVariable("id") final long id) {
         return this.foodItemService.searchFoodItemById(id);
     }
 }

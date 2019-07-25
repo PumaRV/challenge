@@ -36,16 +36,16 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
     private final Environment env;
 
-    public WebConfigurer(Environment env) {
+    public WebConfigurer(final Environment env) {
         this.env = env;
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(final ServletContext servletContext) throws ServletException {
         if (env.getActiveProfiles().length != 0) {
             log.info("Web application configuration, using profiles: {}", (Object[]) env.getActiveProfiles());
         }
-        EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+        final EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
         log.info("Web application fully configured");
     }
 
@@ -53,29 +53,29 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
      * Customize the Servlet engine: Mime types, the document root, the cache.
      */
     @Override
-    public void customize(WebServerFactory server) {
+    public void customize(final WebServerFactory server) {
         setMimeMappings(server);
         // When running in an IDE or with ./mvnw spring-boot:run, set location of the static web assets.
         setLocationForStaticAssets(server);
     }
 
-    private void setMimeMappings(WebServerFactory server) {
+    private void setMimeMappings(final WebServerFactory server) {
         if (server instanceof ConfigurableServletWebServerFactory) {
-            MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+            final MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
             // IE issue, see https://github.com/jhipster/generator-jhipster/pull/711
             mappings.add("html", MediaType.TEXT_HTML_VALUE + ";charset=" + StandardCharsets.UTF_8.name().toLowerCase());
             // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
             mappings.add("json", MediaType.TEXT_HTML_VALUE + ";charset=" + StandardCharsets.UTF_8.name().toLowerCase());
-            ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
+            final ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
             servletWebServer.setMimeMappings(mappings);
         }
     }
 
-    private void setLocationForStaticAssets(WebServerFactory server) {
+    private void setLocationForStaticAssets(final WebServerFactory server) {
         if (server instanceof ConfigurableServletWebServerFactory) {
-            ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
-            File root;
-            String prefixPath = resolvePathPrefix();
+            final ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
+            final File root;
+            final String prefixPath = resolvePathPrefix();
             root = new File(prefixPath + "target/www/");
             if (root.exists() && root.isDirectory()) {
                 servletWebServer.setDocumentRoot(root);
@@ -94,9 +94,9 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
             /* try without decoding if this ever happens */
             fullExecutablePath = this.getClass().getResource("").getPath();
         }
-        String rootPath = Paths.get(".").toUri().normalize().getPath();
-        String extractedPath = fullExecutablePath.replace(rootPath, "");
-        int extractionEndIndex = extractedPath.indexOf("target/");
+        final String rootPath = Paths.get(".").toUri().normalize().getPath();
+        final String extractedPath = fullExecutablePath.replace(rootPath, "");
+        final int extractionEndIndex = extractedPath.indexOf("target/");
         if (extractionEndIndex <= 0) {
             return "";
         }
@@ -105,7 +105,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         log.debug("Registering CORS filter");
         source.registerCorsConfiguration("/**", config);

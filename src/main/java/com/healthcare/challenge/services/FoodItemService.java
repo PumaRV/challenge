@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class FoodItemService {
 
-    private FatsecretService fatsecretService;
+   final private FatsecretService fatsecretService;
 
-    public FoodItemService(FatsecretService fatSecretService) {
+    public FoodItemService(final FatsecretService fatSecretService) {
         this.fatsecretService = fatSecretService;
     }
 

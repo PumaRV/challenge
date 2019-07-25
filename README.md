@@ -11,7 +11,7 @@ a food item using the FatSecret API.
 - Application properties are listed in Application.properties. The properties include the API Key and API Secret for 
 FatSecret API.  
 
-##Executing 
+## Executing 
 Follow these steps 
 
 - Navigate to the root of the project 
@@ -24,6 +24,6 @@ $ ./mvnw
 
 Application will start in port 8080
 
-##Testing
+## Testing
 Just put a food item ID in the form and click search. (example: 55487, 55877)
 

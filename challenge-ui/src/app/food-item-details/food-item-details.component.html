@@ -1,13 +1,16 @@
 <h3>Welcome to the Food Item Search </h3>
 
 
-  <div>
-    <form [formGroup]="foodItemFormGroup" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="id">Insert the ID to search for a Food Item</label>
-        <input type="text" id="id" formControlName="id" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-  </div>
+<div>
+  <form [formGroup]="foodItemFormGroup" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="id">Insert the ID to search for a Food Item</label>
+      <input type="text" id="id" formControlName="id" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  <div *ngIf="loading">loading...</div>
+  <pre>Data Obtained is: {{ data | json }}</pre>
+</div>
 

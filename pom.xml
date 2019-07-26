@@ -42,6 +42,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -58,6 +66,18 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<executions>
 					<execution>
+						<id>Install dependencies</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>npm</executable>
+							<workingDirectory>${basedir}/challenge-ui</workingDirectory>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
 						<!-- Run our version calculation script -->
 						<id>Generate UI</id>
 						<phase>prepare-package</phase>
@@ -65,7 +85,7 @@
 							<goal>exec</goal>
 						</goals>
 						<configuration>
-							<executable>scripts/generate-ui.sh</executable>
+							<executable>ng</executable>
 							<workingDirectory>${basedir}/challenge-ui</workingDirectory>
 							<arguments>build</arguments>
 						</configuration>
@@ -87,7 +107,7 @@
 							<outputDirectory>${basedir}/target/classes/static/</outputDirectory >
 							<resources>
 								<resource>
-									<directory>${basedir}/challenge-ui/dist/control-center-ui</directory >
+									<directory>${basedir}/challenge-ui/dist/challenge-ui</directory >
 								</resource>
 							</resources>
 						</configuration>

@@ -18,8 +18,8 @@ Follow these steps
 
 run
 ```
-$ ./mvnw clean package
-$ ./mvnw
+$ mvn clean package
+$ mvn spring-boot:run
 ```
 
 Application will start in port 8080
